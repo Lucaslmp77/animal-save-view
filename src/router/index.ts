@@ -17,10 +17,10 @@ import ProviderView from "@/views/Provider/ProviderView.vue";
 import RegisterServiceView from "@/views/Provider/RegisterServiceView.vue";
 import UpdateProviderView from "@/views/Provider/UpdateProviderView.vue";
 import EditServiceView from "@/views/Provider/UpdateServiceView.vue";
-import Provider from "@/views/Provider/ProviderView.vue"
-import RegisterService from "@/views/Provider/RegisterServiceView.vue"
-import UpdateProvider from "@/views/Provider/UpdateProviderView.vue"
-import UpdateService from "@/views/Provider/UpdateServiceView.vue"
+import Provider from "@/views/Provider/ProviderView.vue";
+import RegisterService from "@/views/Provider/RegisterServiceView.vue";
+import UpdateProvider from "@/views/Provider/UpdateProviderView.vue";
+import UpdateService from "@/views/Provider/UpdateServiceView.vue";
 
 Vue.use(VueRouter);
 const loginInstance = new Login();
@@ -28,13 +28,12 @@ const tokenLogin: Token = loginInstance.tokenLogin;
 const user: string = loginInstance.tokenLogin.token;
 const userauth: boolean = loginInstance.tokenLogin.auth;
 const routes: Array<RouteConfig> = [
-  
   {
     path: "/protetora/:id",
     name: "protetora",
     component: HomeCaregiver,
     beforeEnter: function (to, from, next) {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
 
       if (!token) {
         next("/login");
