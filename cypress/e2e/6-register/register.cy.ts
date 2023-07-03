@@ -7,7 +7,7 @@ describe('Register', () => {
 
     context('Quando acessar tela de registrar', () => {
 
-        it('Deve exibir a tela de registrar corretamente', () => {
+        it('Deve exibir a tela de registrar associado corretamente', () => {
 
             cy.get('main').should('be.visible')
             cy.get('.section_register').should('be.visible')
@@ -34,6 +34,15 @@ describe('Register', () => {
 
             cy.get('#voltar').should('be.visible')
             cy.get('#cadastrar').should('be.visible')
+
+        });
+
+        it('Deve voltar para a landing page ao clicar em "voltar"', () => {
+
+            cy.get('#voltar').click()
+
+            cy.url().should('contain', 'http://localhost:3000')
+            cy.url().should('not.contain', '/register')
 
         });
     })
@@ -90,5 +99,69 @@ describe('Register', () => {
             cy.get('.message-body').should('be.visible', 'contain', '')
 
         })
+    })
+
+    context('Quando acessar o registro de Fornecedor', () => {
+
+        it('Deve exibir a tela de registrar fornecedor corretamente', () => {
+
+            cy.get('#selectProfileType').select('2')
+
+            cy.get('#selectProfileType').should('be.visible', 'exist')
+            cy.get('main').should('be.visible', 'exist')
+            cy.get('.section_register').should('be.visible', 'exist')
+            cy.get('.container_form > :nth-child(1) > .label').should('be.visible', 'exist')
+            cy.get('#selectProfileType').should('be.visible', 'exist')
+            cy.get(':nth-child(2) > :nth-child(1) > :nth-child(1) > .label').should('be.visible', 'exist')
+            cy.get(':nth-child(1) > :nth-child(1) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(1) > :nth-child(2) > .label').should('be.visible', 'exist')
+            cy.get(':nth-child(1) > :nth-child(2) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(2) > :nth-child(1) > .label').should('be.visible', 'exist')
+            cy.get(':nth-child(2) > :nth-child(1) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(2) > :nth-child(2) > .label').should('be.visible', 'exist')
+            cy.get(':nth-child(2) > :nth-child(2) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(3) > .label').should('be.visible', 'exist')
+            cy.get(':nth-child(3) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(4) > :nth-child(1) > .label').should('be.visible', 'exist')
+            cy.get(':nth-child(4) > :nth-child(1) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(4) > :nth-child(2) > .label').should('be.visible', 'exist')
+            cy.get(':nth-child(4) > :nth-child(2) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(5) > :nth-child(1) > .label').should('be.visible', 'exist')
+            cy.get(':nth-child(5) > :nth-child(1) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(5) > :nth-child(2) > .label').should('be.visible', 'exist')
+            cy.get(':nth-child(5) > :nth-child(2) > .control > .input').should('be.visible', 'exist')
+
+            cy.get('#voltar').should('be.visible', 'exist')
+            cy.get('#cadastrar').should('be.visible', 'exist')
+
+        });
+
+        it('Deve voltar para a landing page ao clicar no botão de "voltar"', () => {
+
+            cy.get('#voltar').click()
+
+            cy.url().should('contain', 'http://localhost:3000')
+            cy.url().should('not.contain', '/register')
+
+        });
+
+        it('Não deve cadastrar inserindo informações erradas no formulário', () => {
+
+            cy.get('#selectProfileType').select('2')
+
+            cy.get(':nth-child(1) > :nth-child(1) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(1) > :nth-child(2) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(2) > :nth-child(1) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(2) > :nth-child(2) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(3) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(4) > :nth-child(1) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(4) > :nth-child(2) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(5) > :nth-child(1) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(5) > :nth-child(2) > .control > .input').should('be.visible', 'exist')
+
+            cy.get('#cadastrar').click()
+
+        });
+
     })
 })
