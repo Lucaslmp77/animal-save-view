@@ -5,7 +5,7 @@ export class VaccinationClient {
 
     constructor() {
         this.axiosClient = axios.create({
-            baseURL: 'http://localhost:8080/api/vaccination',
+            baseURL: 'https://animal-save-w8pb.onrender.com/api/vaccination',
             headers: {
                 'content-type' : 'application/json'
             }

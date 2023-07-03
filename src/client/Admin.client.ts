@@ -8,7 +8,7 @@ export class AdminClient {
     private axiosClient: AxiosInstance;
     constructor() {
         this.axiosClient = axios.create({
-            baseURL: 'http://localhost:8080/api/admin',
+            baseURL: 'https://animal-save-w8pb.onrender.com/api/admin',
             headers: {
                 'content-type' : 'application/json'
             }

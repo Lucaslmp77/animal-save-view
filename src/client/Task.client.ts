@@ -7,7 +7,7 @@ export class TaskClient {
 
     constructor() {
         this.axiosClient = axios.create({
-            baseURL: 'http://localhost:8080/api/task',
+            baseURL: 'https://animal-save-w8pb.onrender.com/api/task',
             headers: {
                 'content-type' : 'application/json'
             }

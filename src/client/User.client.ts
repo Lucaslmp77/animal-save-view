@@ -11,7 +11,7 @@ export class UserClient {
 
   constructor() {
     this.axiosClient = axios.create({
-      baseURL: "http://localhost:8080/api/user",
+      baseURL: "https://animal-save-w8pb.onrender.com/api/user",
       headers: {
         "Content-type": "application/json",
       },

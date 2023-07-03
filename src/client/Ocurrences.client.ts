@@ -7,7 +7,7 @@ export class OcurrencesClient {
 
     constructor() {
         this.axiosClient = axios.create({
-            baseURL: 'http://localhost:8080/api/occurrence',
+            baseURL: 'https://animal-save-w8pb.onrender.com/api/occurrence',
             headers: {
                 'Content-type' : 'application/json'
             }
@@ -27,7 +27,7 @@ export class OcurrencesClient {
         try {
             // Criar uma instância separada do Axios sem o cabeçalho de autorização
             const axiosWithoutToken = axios.create({
-                baseURL: 'http://localhost:8080/api/occurrence',
+                baseURL: 'https://animal-save-w8pb.onrender.com/api/occurrence',
                 headers: {
                     'Content-type': 'application/json'
                 }

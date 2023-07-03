@@ -6,7 +6,7 @@ export class CaregiverClient {
 
     constructor() {
         this.axiosClient = axios.create({
-            baseURL: 'http://localhost:8080/api/caregiver',
+            baseURL: 'https://animal-save-w8pb.onrender.com/api/caregiver',
             headers: {
                 'Content-type' : 'application/json'
             }

@@ -6,7 +6,7 @@ export class AddressClient {
 
     constructor() {
         this.axiosClient = axios.create({
-            baseURL: 'http://localhost:8080/api/address',
+            baseURL: 'https://animal-save-w8pb.onrender.com/api/address',
             headers: {
                 'content-type' : 'application/json'
             }
