@@ -119,17 +119,51 @@ describe('Associate View', () => {
                 }
             }).as('atualizarPerfil');
 
-            cy.get(':nth-child(1) > :nth-child(1) > .control > .input').type('Ab')
-            cy.get(':nth-child(1) > :nth-child(2) > .control > .input').type('Ab')
-            cy.get(':nth-child(2) > :nth-child(1) > .control > .input').type('0000000')
-            cy.get(':nth-child(2) > :nth-child(2) > .control > .input').type('000.000.000-00')
-            cy.get(':nth-child(3) > .control > .input').type('aaaaaa@.com')
-            cy.get(':nth-child(4) > :nth-child(1) > .control > .input').type('00000000')
+            cy.get(':nth-child(1) > :nth-child(1) > .control > .input').clear().type('Ab')
+            cy.get(':nth-child(1) > :nth-child(2) > .control > .input').clear().type('Ab')
+            cy.get(':nth-child(2) > :nth-child(1) > .control > .input').clear().type('0000000')
+            cy.get(':nth-child(2) > :nth-child(2) > .control > .input').should('be.disabled')
+            cy.get(':nth-child(3) > .control > .input').should('be.disabled')
+            cy.get(':nth-child(4) > :nth-child(1) > .control > .input').clear().type('00000000')
             cy.get(':nth-child(4) > :nth-child(2) > .control > .input').should('be.disabled')
             cy.get(':nth-child(5) > :nth-child(1) > .control > .input').should('be.disabled')
-            cy.get(':nth-child(5) > :nth-child(2) > .control > .input').type('0')
+            cy.get(':nth-child(5) > :nth-child(2) > .control > .input').clear().type('0')
 
             cy.get('#cadastrar').click()
+
+        });
+
+        it('Deve conseguir atualizar o perfil preenchendo as informações corretamente', () => {
+
+            cy.get('#dropdown').trigger('mouseover');
+
+            cy.get('#dropdown')
+                .find('a')
+                .contains('Meus dados')
+                .click({ force: true });
+
+            cy.url().should('contain', '/update')
+
+            cy.intercept('PUT', '/api/associate/update', {
+                statusCode: 200,
+                body: {
+                    message: 'Perfil atualizado com sucesso!'
+                }
+            }).as('atualizarPerfil');
+
+            cy.get(':nth-child(1) > :nth-child(1) > .control > .input').clear().type('Associado')
+            cy.get(':nth-child(1) > :nth-child(2) > .control > .input').clear().type('Associado')
+            cy.get(':nth-child(2) > :nth-child(1) > .control > .input').clear().type('45 9 00000000')
+            cy.get(':nth-child(2) > :nth-child(2) > .control > .input').should('be.disabled')
+            cy.get(':nth-child(3) > .control > .input').should('be.disabled')
+            cy.get(':nth-child(4) > :nth-child(1) > .control > .input').clear().type('00000000')
+            cy.get(':nth-child(4) > :nth-child(2) > .control > .input').should('be.disabled')
+            cy.get(':nth-child(5) > :nth-child(1) > .control > .input').should('be.disabled')
+            cy.get(':nth-child(5) > :nth-child(2) > .control > .input').clear().type('523')
+
+            cy.get('#cadastrar').click()
+
+            cy.get('.message-body').should('exist', 'be.visible')
 
         });
     })
