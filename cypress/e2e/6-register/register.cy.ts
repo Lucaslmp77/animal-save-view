@@ -96,7 +96,7 @@ describe('Register', () => {
 
             cy.get('#cadastrar').should('be.visible').click()
 
-            cy.get('.message-body').should('be.visible', 'contain', '')
+            cy.get('.message-body').should('be.visible')
 
         })
     })
@@ -147,19 +147,61 @@ describe('Register', () => {
 
         it('Não deve cadastrar inserindo informações erradas no formulário', () => {
 
+            cy.intercept('POST', '/api/provider/register', (req) => {
+                req.reply({
+                    statusCode: 400,
+                    body: {
+                        status: 'error',
+                        message: 'Erro no cadastro!'
+                    }
+                });
+            }).as('submitRequest');
+
             cy.get('#selectProfileType').select('2')
 
-            cy.get(':nth-child(1) > :nth-child(1) > .control > .input').should('be.visible', 'exist')
-            cy.get(':nth-child(1) > :nth-child(2) > .control > .input').should('be.visible', 'exist')
-            cy.get(':nth-child(2) > :nth-child(1) > .control > .input').should('be.visible', 'exist')
-            cy.get(':nth-child(2) > :nth-child(2) > .control > .input').should('be.visible', 'exist')
-            cy.get(':nth-child(3) > .control > .input').should('be.visible', 'exist')
-            cy.get(':nth-child(4) > :nth-child(1) > .control > .input').should('be.visible', 'exist')
-            cy.get(':nth-child(4) > :nth-child(2) > .control > .input').should('be.visible', 'exist')
-            cy.get(':nth-child(5) > :nth-child(1) > .control > .input').should('be.visible', 'exist')
-            cy.get(':nth-child(5) > :nth-child(2) > .control > .input').should('be.visible', 'exist')
+            cy.get(':nth-child(1) > :nth-child(1) > .control > .input').should('be.visible').type('Ab')
+            cy.get(':nth-child(1) > :nth-child(2) > .control > .input').should('be.visible').type('Ab')
+            cy.get(':nth-child(2) > :nth-child(1) > .control > .input').should('be.visible').type('123456789')
+            cy.get(':nth-child(2) > :nth-child(2) > .control > .input').should('be.visible').type('00.000.000/0001-00')
+            cy.get(':nth-child(3) > .control > .input').should('be.visible').type('asdjnasjd@.com')
+            cy.get(':nth-child(4) > :nth-child(1) > .control > .input').should('be.visible').type('00000000')
+            cy.get(':nth-child(4) > :nth-child(2) > .control > .input').should('be.visible', 'be.disabled')
+            cy.get(':nth-child(5) > :nth-child(1) > .control > .input').should('be.visible', 'be.disabled')
+            cy.get(':nth-child(5) > :nth-child(2) > .control > .input').should('be.visible').type('0')
 
             cy.get('#cadastrar').click()
+
+        });
+
+        it('Deve cadastrar inserindo informações corretas no formulário, verificar se a mensagem de sucesso aparece e fechar ela', () => {
+
+            cy.intercept('POST', '/api/provider/register', {
+                statusCode: 200,
+                body: {
+                    status: 'success',
+                    message: 'Cadastro realizado com sucesso!'
+                }
+            }).as('submitRequest');
+
+            cy.get('#selectProfileType').select('2')
+
+            cy.get(':nth-child(1) > :nth-child(1) > .control > .input').should('be.visible').type('Fornecedor')
+            cy.get(':nth-child(1) > :nth-child(2) > .control > .input').should('be.visible').type('Fornecedor')
+            cy.get(':nth-child(2) > :nth-child(1) > .control > .input').should('be.visible').type('45 9 1234-5678')
+            cy.get(':nth-child(2) > :nth-child(2) > .control > .input').should('be.visible').type('75.945.864/0001-85')
+            cy.get(':nth-child(3) > .control > .input').should('be.visible').type('fornecedor@gmail.com')
+            cy.get(':nth-child(4) > :nth-child(1) > .control > .input').should('be.visible').type('69900050')
+            cy.get(':nth-child(4) > :nth-child(2) > .control > .input').should('be.disabled', 'contain', 'Centro')
+            cy.get(':nth-child(5) > :nth-child(1) > .control > .input').should('be.disabled', 'contain', 'Avenida Epaminondas Jácome')
+            cy.get(':nth-child(5) > :nth-child(2) > .control > .input').should('be.visible').type('345')
+
+            cy.get('#cadastrar').click()
+
+            cy.get('.message-body').should('be.visible')
+
+            cy.get('.delete').click()
+
+            cy.get('.message-body').should('not.exist')
 
         });
 
