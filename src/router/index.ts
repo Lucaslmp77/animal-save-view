@@ -3,7 +3,6 @@ import VueRouter, { RouteConfig } from "vue-router";
 import Header from "@/views/LandingPage/Header.vue";
 import RegisterOccurences from "@/views/LandingPage/RegisterOccurences.vue";
 import Login from "@/views/Login.vue";
-import RegisterAnimal from "@/views/Protetora/RegisterAnimals.vue";
 import Register from "@/views/RegisterUsers/Register.vue";
 import HomeAssociate from "@/views/Associate/HomeAssociate.vue";
 import UpdateAssociate from "@/views/Associate/UpdateAssociate.vue";
@@ -11,31 +10,26 @@ import Administrator from "@/views/Administrator/Administrator.vue";
 import HomeCaregiver from "@/views/Protetora/HomeCaregiver.vue";
 import { Token } from "@/model/Token";
 import Modal from "@/views/Modal.vue";
-import HeaderVue from "@/views/LandingPage/Header.vue";
-import ListOccurrence from "@/views/Protetora/ListOcurrences.vue";
-import ProviderView from "@/views/Provider/ProviderView.vue";
-import RegisterServiceView from "@/views/Provider/RegisterServiceView.vue";
-import UpdateProviderView from "@/views/Provider/UpdateProviderView.vue";
-import EditServiceView from "@/views/Provider/UpdateServiceView.vue";
-import Provider from "@/views/Provider/ProviderView.vue";
-import RegisterService from "@/views/Provider/RegisterServiceView.vue";
-import UpdateProvider from "@/views/Provider/UpdateProviderView.vue";
-import UpdateService from "@/views/Provider/UpdateServiceView.vue";
+import Provider from "@/views/Provider/ProviderView.vue"
+import RegisterService from "@/views/Provider/RegisterServiceView.vue"
+import UpdateProvider from "@/views/Provider/UpdateProviderView.vue"
+import UpdateService from "@/views/Provider/UpdateServiceView.vue"
 
 Vue.use(VueRouter);
 const loginInstance = new Login();
 const tokenLogin: Token = loginInstance.tokenLogin;
 const user: string = loginInstance.tokenLogin.token;
 const userauth: boolean = loginInstance.tokenLogin.auth;
+const role: string | null = sessionStorage.getItem("role");
 const routes: Array<RouteConfig> = [
+  
   {
     path: "/protetora/:id",
     name: "protetora",
     component: HomeCaregiver,
     beforeEnter: function (to, from, next) {
       const token = sessionStorage.getItem("token");
-
-      if (!token) {
+      if (!token || role != "ROLE_CAREGIVER") {
         next("/login");
       } else {
         next();
@@ -69,8 +63,7 @@ const routes: Array<RouteConfig> = [
     component: HomeAssociate,
     beforeEnter: function (to, from, next) {
       const token = sessionStorage.getItem("token");
-
-      if (!token) {
+      if (!token || role != "ROLE_ASSOCIATE") {
         next("/login");
       } else {
         next();
@@ -83,7 +76,6 @@ const routes: Array<RouteConfig> = [
     component: UpdateAssociate,
     beforeEnter: function (to, from, next) {
       const token = sessionStorage.getItem("token");
-
       if (!token) {
         next("/login");
       } else {
@@ -98,7 +90,7 @@ const routes: Array<RouteConfig> = [
     beforeEnter: function (to, from, next) {
       const token = sessionStorage.getItem("token");
       console.log(token);
-      if (!token) {
+      if (!token || role != "ROLE_ADMIN") {
         next("/login");
       } else {
         next();
@@ -125,8 +117,7 @@ const routes: Array<RouteConfig> = [
     component: Provider,
     beforeEnter: function (to, from, next) {
       const token = sessionStorage.getItem("token");
-
-      if (!token) {
+      if (!token || role != "ROLE_PROVIDER") {
         next("/login");
       } else {
         next();
@@ -137,16 +128,40 @@ const routes: Array<RouteConfig> = [
     path: "/fornecedor/cadastrarServico/:id",
     name: "CadastrarServico",
     component: RegisterService,
+    beforeEnter: function (to, from, next) {
+      const token = sessionStorage.getItem("token");
+      if (!token || role != "ROLE_PROVIDER") {
+        next("/login");
+      } else {
+        next();
+      }
+    },
   },
   {
     path: "/fornecedor/atualizarFornecedor/:id",
     name: "AtualizarFornecedor",
     component: UpdateProvider,
+    beforeEnter: function (to, from, next) {
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+        next("/login");
+      } else {
+        next();
+      }
+    },
   },
   {
     path: "/fornecedor/atualizarServico/:id",
     name: "AtualizarServico",
     component: UpdateService,
+    beforeEnter: function (to, from, next) {
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+        next("/login");
+      } else {
+        next();
+      }
+    },
   },
 ];
 

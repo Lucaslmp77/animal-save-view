@@ -137,7 +137,7 @@
                     @click="updateToRejected(associate.user.id)"
                     class="button is-danger is-focused"
                   >
-                    Desaprovar
+                    Desabilitar
                   </button>
                 </div>
               </div>
@@ -281,7 +281,7 @@
                     @click="updateToRejected(provider.user.id)"
                     class="button is-danger is-focused"
                   >
-                    Desaprovar
+                  Desabilitar
                   </button>
                 </div>
               </div>
@@ -464,7 +464,7 @@
                     @click="updateToRejected(caregiver.user.id)"
                     class="button is-danger is-focused"
                   >
-                    Desaprovar
+                  Desabilitar
                   </button>
                 </div>
               </div>
@@ -563,7 +563,7 @@
                   :disabled="select !== '0' || isLoading"
                   @click="updateToRejected(item.user.id)"
                 >
-                  <strong>Desaprovar</strong>
+                  <strong>Desabilitar</strong>
                 </button>
               </td>
             </tr>
@@ -634,7 +634,7 @@
                   :disabled="select !== '0' || isLoading"
                   @click="updateToRejected(item.user.id)"
                 >
-                  <strong>Desaprovar</strong>
+                  <strong>Desabilitar</strong>
                 </button>
               </td>
             </tr>
@@ -705,7 +705,7 @@
                   :disabled="select !== '0' || isLoading"
                   @click="updateToRejected(item.user.id)"
                 >
-                  <strong>Desaprovar</strong>
+                  <strong>Desabilitar</strong>
                 </button>
               </td>
             </tr>

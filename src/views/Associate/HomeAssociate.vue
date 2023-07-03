@@ -90,8 +90,6 @@
 <script lang="ts" scoped>
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import { UserClient } from "@/client/User.client";
-import { Associate } from "@/model/Associate";
 import router from "@/router";
 
 @Component

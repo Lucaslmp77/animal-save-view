@@ -137,7 +137,7 @@
                     @click="updateToApproved(associate.user.id)"
                     class="button is-success is-focused"
                   >
-                    Aprovar
+                    Habilitar
                   </button>
                 </div>
               </div>
@@ -281,7 +281,7 @@
                     @click="updateToApproved(provider.user.id)"
                     class="button is-success is-focused"
                   >
-                    Aprovar
+                  Habilitar
                   </button>
                 </div>
               </div>
@@ -464,7 +464,7 @@
                     @click="updateToApproved(caregiver.user.id)"
                     class="button is-success is-focused"
                   >
-                    Aprovar
+                  Habilitar
                   </button>
                 </div>
               </div>
@@ -563,7 +563,7 @@
                   :disabled="select !== '0' || isLoading"
                   @click="updateToApproved(item.user.id)"
                 >
-                  <strong>Aprovar</strong>
+                  <strong>Habilitar</strong>
                 </button>
               </td>
             </tr>
@@ -634,7 +634,7 @@
                   :disabled="select !== '0' || isLoading"
                   @click="updateToApproved(item.user.id)"
                 >
-                  <strong>Aprovar</strong>
+                  <strong>Habilitar</strong>
                 </button>
               </td>
             </tr>
@@ -705,7 +705,7 @@
                   :disabled="select !== '0' || isLoading"
                   @click="updateToApproved(item.user.id)"
                 >
-                  <strong>Aprovar</strong>
+                  <strong>Habilitar</strong>
                 </button>
               </td>
             </tr>

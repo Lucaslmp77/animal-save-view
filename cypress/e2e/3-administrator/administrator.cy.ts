@@ -13,6 +13,27 @@ describe('Administrator Page', () => {
             cy.get('#button-login').click()
             cy.wait(1000)
         })
+        it('Deve aparecer mensagem de erro caso usuário erra os dados de login',() =>{
+            cy.viewport("macbook-15")
+            cy.visit('http://localhost:3000/login')
+            cy.get(':nth-child(1) > .control > .input').type('admin@admin.com')
+            cy.get(':nth-child(2) > .control > .input').type('123')
+            cy.get('#button-login').click()
+            cy.get('.notification').should('exist')
+            cy.wait(1000)
+        })
+        it('Deve levar a tela de cadastro ao clicar em CADASTRE-SE',() =>{
+            cy.viewport("macbook-15")
+            cy.visit('http://localhost:3000/login')
+            cy.get('#not-register').click()
+            cy.url('include', '/register')
+        })
+        it('Deve voltar para landing page ao clicar em VOLTAR',() =>{
+            cy.viewport("macbook-15")
+            cy.visit('http://localhost:3000/login')
+            cy.get('#button-voltar').click()
+            cy.url('include', 'http://localhost:3000/login')
+        })
     })
 
     context('Quando acessar a página inicial do administrador',() => {

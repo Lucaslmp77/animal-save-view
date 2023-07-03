@@ -243,7 +243,7 @@ export default class Login extends Vue {
           );
         }
 
-        console.log(decodedToken);
+        sessionStorage.setItem("role", authorities[0]);
         sessionStorage.setItem("token", this.tokenLogin.token);
       },
       (error) => {
